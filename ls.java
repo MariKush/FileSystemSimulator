@@ -134,7 +134,7 @@ public class ls
    * This is a convenience method.
    * @param name the name to print
    * @param stat the stat containing the file's information
-   */
+   */ 
   private static void print( String name , Stat stat )
   {
     // a buffer to fill with a line of output
@@ -142,7 +142,7 @@ public class ls
 
     // a temporary string
     String t = null ;
-
+   
     // append the inode number in a field of 5
     t = Integer.toString( stat.getIno() ) ;
     for( int i = 0 ; i < 5 - t.length() ; i ++ )
@@ -157,11 +157,30 @@ public class ls
     s.append( t ) ;
     s.append( ' ' ) ;
 
+    // append the user id in a field of 5
+    t = Short.toString( stat.getUid() ) ;
+    for( int i = 0 ; i < 5 - t.length() ; i ++ )
+      s.append( ' ' );
+    s.append( t );
+    s.append( ' ' );
+ 
+    // append the group id in a field of 5
+    t = Short.toString( stat.getGid() ) ;
+    for( int i = 0 ; i < 5 - t.length() ; i ++ )
+      s.append( ' ' );
+    s.append( t );
+    s.append( ' ' );
+
+    // append 9 low-order bits of mode as a 3-digit octal number (i.e., 000..777) 
+    short mode = stat.getMode();
+    s.append( ' ' );
+    s.append( (mode & Kernel.S_IRWXU) >> 6 );
+    s.append( (mode & Kernel.S_IRWXG) >> 3 );
+    s.append( mode & Kernel.S_IRWXO );
+    s.append( ' ' );
+ 
     // append the name
     s.append( name ) ;
-
-
-    System.out.println( "here" ) ;
 
     // print the buffer
     System.out.println( s.toString() ) ;
