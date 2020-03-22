@@ -81,8 +81,7 @@ public class ProcessContext
   /**
    * Construct a process context and specify uid, gid, dir, and umask.
    */
-  public ProcessContext( short newUid , short newGid , String newDir , 
-    short newUmask )
+  public ProcessContext( short newUid , short newGid , String newDir , short newUmask )
   {
     super() ;
     uid = newUid ;
