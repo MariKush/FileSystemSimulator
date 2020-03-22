@@ -8,10 +8,13 @@ echo howdy, podner | java tee /home/rayo/hello.txt
 java cp /home/rayo/hello.txt /home/rayo/greeting.txt
 java cat /home/rayo/greeting.txt
 
-java mkdir /root
-java ls /
-dir /b *.java | java tee /root/t.lis
-java ls /root
-java cat /root/t.lis
+java chmod /home/rayo 777
+java ls /home
+
+java chmod  /home/rayo /home 077
+java ls /home
+
+java chmod /home 007
+java ls /home
 
 pause

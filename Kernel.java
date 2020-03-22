@@ -1602,5 +1602,29 @@ Some internal methods.
     return indexNodeNumber ;
   }
 
+  public static int chmod(String path, short mode) throws Exception {
+
+    IndexNode indexNode = new IndexNode();
+    short indexNodeNumber = findIndexNode(path, indexNode);
+
+    if (indexNode.getUid() == process.getUid() || process.getUid() == 0) {  
+
+      mode = Short.parseShort(String.valueOf(mode), 8);
+      indexNode.setMode((short)((indexNode.getMode() & (~0777))| mode));
+
+      FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM];
+      fileSystem.writeIndexNode(indexNode, indexNodeNumber);
+
+      return mode;   
+      
+    }
+    else{// not owner or super-user
+      process.errno = EPERM;
+      return -1;
+    }
+    
+  }
+
 }
+
 
