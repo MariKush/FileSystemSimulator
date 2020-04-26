@@ -1624,6 +1624,36 @@ Some internal methods.
     }
     
   }
+  
+  public static int chown(String path, short uidOrGid, boolean isGid) throws Exception {
+
+    IndexNode indexNode = new IndexNode();
+    short indexNodeNumber = findIndexNode(path, indexNode);
+
+    if (isGid && (indexNode.getUid() == process.getUid() || process.getUid() == 0))
+    {
+      indexNode.setGid(uidOrGid);
+
+      FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM];
+      fileSystem.writeIndexNode(indexNode, indexNodeNumber);
+
+      return 0;
+    }
+
+    if (!isGid && indexNode.getUid() == 0)
+    {
+      indexNode.setUid(uidOrGid);
+
+      FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM];
+      fileSystem.writeIndexNode(indexNode, indexNodeNumber);
+
+      return 0;
+    }
+
+    // not owner or super-user
+    process.errno = EPERM;
+    return -1;
+  }
 
 }
 
