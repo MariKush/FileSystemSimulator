@@ -42,7 +42,7 @@ public class chmod {
       //execution change mode program and check the results of its operation
       if (Kernel.chmod(args[i], mode) < 0) {
         Kernel.perror(PROGRAM_NAME);
-        System.err.println(PROGRAM_NAME + ": index node cannot be accessed");
+        System.err.println(PROGRAM_NAME + ": mode cannot be changed");
         Kernel.exit(3);
       }
     }

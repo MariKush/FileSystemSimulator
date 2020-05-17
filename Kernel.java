@@ -1609,8 +1609,9 @@ Some internal methods.
 
     if (indexNode.getUid() == process.getUid() || process.getUid() == 0) {  
 
-      mode = Short.parseShort(String.valueOf(mode), 8);
-      indexNode.setMode((short)((indexNode.getMode() & (~0777))| mode));
+      mode = Short.parseShort(String.valueOf(mode), 8); 
+      int highBits = indexNode.getMode() - indexNode.getMode() % 512;
+      indexNode.setMode((short)(highBits + mode));
 
       FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM];
       fileSystem.writeIndexNode(indexNode, indexNodeNumber);

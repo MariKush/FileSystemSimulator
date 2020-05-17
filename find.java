@@ -68,7 +68,7 @@ public class find  {
                     status = Kernel.stat(entryName , stat ) ;
 
                     if (count > 1) {
-                        print(name + "/" + entryName, stat);
+                        print(name + "/" + entryName);
                     }
 
                     Stat newStat = new Stat() ;
