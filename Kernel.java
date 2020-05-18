@@ -1609,7 +1609,7 @@ Some internal methods.
 
     if (indexNode.getUid() == process.getUid() || process.getUid() == 0) {  
 
-      mode = Short.parseShort(String.valueOf(mode), 8) & (512-1); 
+      mode = (short)(Short.parseShort(String.valueOf(mode), 8) & (512-1)); 
       indexNode.setMode((short)((indexNode.getMode()&(~0777))|mode));
 
       FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM];
