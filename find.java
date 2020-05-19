@@ -69,14 +69,6 @@ public class find  {
 
                     if (count > 1) {
                         print(name + "/" + entryName);
-                    }
-
-                    Stat newStat = new Stat() ;
-                    status = Kernel.stat( entryName , newStat ) ;
-                    short newType = (short)( newStat.getMode() & Kernel.S_IFMT ) ;
-
-                    if( newType == Kernel.S_IFDIR && count > 1)
-                    {
                         tryFind(name + "/" + entryName);
                     }
 
